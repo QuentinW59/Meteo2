@@ -1,7 +1,6 @@
 import { Text, View } from "react-native";
 import { s } from "./home.style";
-import {url} from "../../API/meteoapi";
-import {requestForegroundPermissionAsync, getCurrentPositionAsync,} from "expo-location";
+import {requestForegroundPermissionsAsync, getCurrentPositionAsync,} from "expo-location";
 import { useEffect, useState } from "react";
 import { MeteoAPI } from "../../API/meteoapi";
 
@@ -13,7 +12,7 @@ export function Home({}) {
     }, []);
 
     async function getUsersCoords() {
-        let {status} = await requestForegroundPermissionAsync();
+        let {status} = await requestForegroundPermissionsAsync();
         if(status === "granted") {
             const location = await getCurrentPositionAsync();
             setCoords({
