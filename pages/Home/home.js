@@ -1,8 +1,9 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { s } from "./home.style";
 import {requestForegroundPermissionsAsync, getCurrentPositionAsync,} from "expo-location";
 import { useEffect, useState } from "react";
 import { MeteoAPI } from "../../API/meteoapi";
+import { Txt } from "../../composant/Text";
 
 export function Home({}) {
 
@@ -43,13 +44,13 @@ export function Home({}) {
     return (
         <>
             <View style={s.meteo_basic}>
-                <Text style={{fontSize:60, color: "white"}}>La météo basique</Text>
+                <Txt style={{fontSize:50}}>La météo basique</Txt>
             </View>
             <View style={s.searchbar_container}>
-                <Text style={{fontSize:60, color: "white"}}>Barre de recherche</Text>
+                <Txt style={{fontSize:50}}>Barre de recherche</Txt>
             </View>
             <View style={s.meteo_advanced}>
-                <Text style={{fontSize:60, color: "white"}}>La météo avancée</Text>
+                <Txt style={{fontSize:50}}>La météo avancée</Txt>
             </View>
         </>
     );

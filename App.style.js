@@ -7,7 +7,7 @@ const s = StyleSheet.create({
 
     img_background: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: "white",
 
     },
 
