@@ -20,6 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "sofwareKeyboardLayoutMode": "pan",
       "edgeToEdgeEnabled": true
     },
     "web": {

@@ -10,8 +10,13 @@ import { Txt } from "../../composant/Txt/Txt";
 import { MeteoBasic } from '../../layouts/Meteobasic';
 import { getWeatherInterpretation } from '../../services/Meteoservice/Meteoservice';
 import { Meteoadvanced } from '../../composant/Meteoadvanced/Meteoadvanced';
+import { useNavigation } from "@react-navigation/native";
+import { Container } from '../../composant/Container/Container';
+import { SearchBar } from 'react-native-screens';
+
 
 export function Home() {
+
     const [coords, setCoords] = useState();
     useEffect(() => {
         getUserCoords();
@@ -42,6 +47,15 @@ export function Home() {
         setCity(cityResponse);
         console.log(city);
     }
+
+     async function fetchCoordsByCity(city) {
+        try {
+            const coords = await MeteoAPI.fetchCoordsFromCity(city);
+            setCoords(coords);
+        } catch (e) {
+            Alert.alert("Une erreur s'est produite !", e.message);
+        }
+    }
     
     useEffect( () => {
         if (coords) {
@@ -49,9 +63,6 @@ export function Home() {
             fetchCity(coords);
         }
     }, [coords]);
-
-    
-
 
     async function fetchWeather(coordinates) {
         const weatherResponse = await MeteoAPI.fetchWeatherFromCoords(
@@ -66,30 +77,41 @@ export function Home() {
         }
     },[coords]);
 
+    const nav = useNavigation();
+    function goToForcastPage() {
+        nav.navigate("Forecast", {city, ...weather.daily});
+    }
+
     console.log("Coords:", coords);
     console.log("Weather:", weather ?? "Loading or undefined");
-    return currentWeather? (
-        <>
-            <View style={s.meteo_basic}>
-                <MeteoBasic
-                    interpretation={getWeatherInterpretation(currentWeather.weathercode)}
-                    city={city}
-                    temperature={Math.round(currentWeather?.temperature)}
-                    
-                />
-            </View>
-            <View style={s.searchbar_container}>
-                <Txt style={{fontSize: 60}}>
-                    Barre de recherche
-                </Txt>
-            </View>
-            <View style={s.meteo_advanced}>
-                <Meteoadvanced
-                    wind={currentWeather.windspeed}
-                    dusk={weather.daily.sunrise[0].split("T")[1]}
-                    dawn={weather.daily.sunset[0].split("T")[1]}
-                />
-            </View>
-        </>
-    ): null;
+
+
+    return (
+        <Container>
+            {currentWeather ? (
+            <>
+                <View style={s.meteo_basic}>
+                    <MeteoBasic
+                        interpretation={getWeatherInterpretation(currentWeather.weathercode)}
+                        city={city}
+                        temperature={Math.round(currentWeather?.temperature)}
+                        onPress={goToForcastPage}
+                        
+                    />
+                </View>
+                <View style={s.searchbar_container}>
+                    <SearchBar onSubmit={fetchCoordsByCity} />
+                </View>
+                <View style={s.meteo_advanced}>
+                    <Meteoadvanced
+                        wind={currentWeather.windspeed}
+                        dusk={weather.daily.sunrise[0].split("T")[1]}
+                        dawn={weather.daily.sunset[0].split("T")[1]}
+                    />
+                </View>
+            </>
+        ): null }
+        </Container>
+    );
+    
 }

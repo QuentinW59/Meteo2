@@ -22,5 +22,22 @@ export class MeteoAPI {
         const { address: {city, village, town } } = data;
         return city || village || town;
     }
+
+    static async fetchCoordsFromCity(city) {
+        try {
+            const response = await fetch(
+                `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&language=fr&count=1`
+            );
+            if (!response.ok) {
+                throw new Error('Erreur de réseau lors de la récupération des coordonnées');
+            }
+            const data = await response.json();
+            const { latitude: lat, longitude: lng } = data.results[0];
+
+            return { lat, lng };
+        } catch (e) {
+            throw new Error("Pas de coordonnées trouvées pour la recherche : " + city);
+        }
+    }
 }
 
