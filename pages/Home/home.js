@@ -3,11 +3,18 @@ import { s } from "./home.style";
 import {requestForegroundPermissionsAsync, getCurrentPositionAsync,} from "expo-location";
 import { useEffect, useState } from "react";
 import { MeteoAPI } from "../../API/meteoapi";
-import { Txt } from "../../composant/Text";
+import { Txt } from "../../composant/Txt/Txt";
+import { MeteoBasic } from "../../layouts/Meteobasic";
+import { getWeatherInterpretation } from "../../services/Meteoservice/Meteoservice";
 
 export function Home({}) {
 
     const [coords, setCoords] = useState();
+    const [weather, setWeather] = useState();
+    const currentWeather = weather?.currentWeather;
+    
+
+
     useEffect( () => {
         getUsersCoords();
     }, []);
@@ -26,7 +33,7 @@ export function Home({}) {
     }
     console.log(coords);
 
-    const [weather, setWeather] = useState();
+   
 
     async function fetchWeather(coordinates) {
         const weatherResponse = await MeteoAPI.fetchWeatherFromCoords(coordinates);
@@ -41,10 +48,15 @@ export function Home({}) {
         }
     }, [coords]);
 
-    return (
+
+    return currentWeather?(
         <>
             <View style={s.meteo_basic}>
-                <Txt style={{fontSize:50}}>La météo basique</Txt>
+                <MeteoBasic
+                    interpretation = {getWeatherInterpretation(currentWeather.weathercode)}
+                    temperature={Math.round(currentWeather?.temperature)}
+                    city="todo"
+                />
             </View>
             <View style={s.searchbar_container}>
                 <Txt style={{fontSize:50}}>Barre de recherche</Txt>
@@ -53,5 +65,5 @@ export function Home({}) {
                 <Txt style={{fontSize:50}}>La météo avancée</Txt>
             </View>
         </>
-    );
+    ): null;
 }
