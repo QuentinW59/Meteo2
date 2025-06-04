@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import { s } from "./home.style";
+import { s } from "./Home.style";
 import {
     requestForegroundPermissionsAsync,
     getCurrentPositionAsync,
