@@ -1,5 +1,5 @@
- import { use, useEffect, useState } from "react";
- import { nowToHHMM } from "../../services/Heure/Heureservice";
+ import { useEffect, useState } from "react";
+ import { nowToHHMM } from "../../services/Heure/Heureservice.js";
  import { Txt } from "../Txt/Txt.js";
  import { s } from "./Clock.style.js";
 

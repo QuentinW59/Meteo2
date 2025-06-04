@@ -1,29 +1,27 @@
 import { Home } from "./pages/Home/home";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { ImageBackground } from "react-native";
-import backgroundImage from "./assets/background.png";
-import {AlataRegular} from "./assets/font/Alata-Regular.ttf";
-import { useFonts } from "expo-font";
-import { s } from "./App.style"
+import backgroundImg from "./assets/background.png";
+import AlataRegular from "./assets/font/Alata-Regular.ttf";
+import {useFonts} from "expo-font";
 
-export default function App(){
-
-  const [isFontLoaded] = useFonts({
-  "Alata-Regular": AlataRegular,
-});
-
-
+import { s } from "./App.style";
+export default function App() {
+    const [isFontLoaded] = useFonts({
+        "AlataRegular": AlataRegular,
+    });
   return (
-    <ImageBackground
-      source={backgroundImage}
-      style={s.img_background}
-      imageStyle={s.img}
-    >
-        <SafeAreaProvider>
-          <SafeAreaView style={s.container}>
-            {isFontLoaded ? <Home /> : null}
-          </SafeAreaView>
-        </SafeAreaProvider>
-    </ImageBackground>
+      <ImageBackground
+          source={backgroundImg}
+          style={s.img_background}
+          imageStyle={s.img}
+      >
+          <SafeAreaProvider>
+              <SafeAreaView style={s.container}>
+                  {isFontLoaded ? <Home /> : null}
+              </SafeAreaView>
+          </SafeAreaProvider>
+      </ImageBackground>
+
   );
 }

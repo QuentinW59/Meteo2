@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const s = StyleSheet.create({
     text: {
-        color: "black",
+        color: "white",
         fontFamily: "Alata-Regular",
     },
 });

@@ -15,7 +15,7 @@ export function MeteoBasic({temperature, city, interpretation}){
 
 
             <View style={s.temperature_box}>
-                <Txt style={s.temperature}>{temperature}</Txt>
+                <Txt style={s.temperature}>{temperature}°</Txt>
                 <Image style={s.image} source={interpretation.image} />
             </View>
         
