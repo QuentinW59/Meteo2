@@ -4,13 +4,15 @@ import { ImageBackground } from "react-native";
 import backgroundImg from "./assets/background.png";
 import AlataRegular from "./assets/font/Alata-Regular.ttf";
 import {useFonts} from "expo-font";
-import createNativeStackNavigator  from "@react-navigation/native-stack";
+import {createNativeStackNavigator}  from "@react-navigation/native-stack";
 
 
 
 const Stack = createNativeStackNavigator();
 
 import { s } from "./App.style";
+import {NavigationContainer} from "@react-navigation/native";
+import {Forecast} from "./pages/Forecast/Forecast";
 
 const navTheme = {
       colors: {
@@ -23,9 +25,8 @@ export default function App() {
         "AlataRegular": AlataRegular,
     });
 
-    
-const nav = useNavigation();
-    
+
+
   return (
     <NavigationContainer theme={navTheme}>
       <ImageBackground
@@ -48,7 +49,7 @@ const nav = useNavigation();
           </SafeAreaProvider>
       </ImageBackground>
     </NavigationContainer>
-      
+
 
   );
 }
